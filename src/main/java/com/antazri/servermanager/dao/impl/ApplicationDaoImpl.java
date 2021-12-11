@@ -9,11 +9,13 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
 @Repository
+@Transactional
 public class ApplicationDaoImpl implements ApplicationDao {
 
     private static final Logger logger = LogManager.getLogger(ApplicationDaoImpl.class);

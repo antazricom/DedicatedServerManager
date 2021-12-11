@@ -6,10 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.security.Timestamp;
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Repository
+@Transactional
 public interface ActionDao extends JpaRepository<Action, Integer> {
 
     List<Action> findByType(@Param("type") ActionType type);
@@ -20,6 +22,6 @@ public interface ActionDao extends JpaRepository<Action, Integer> {
                                  @Param("end") Timestamp end);
 
     List<Action> findByApplicationAndCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual(@Param("id") int appId,
-                                               @Param("start") Timestamp startDate,
-                                               @Param("end") Timestamp endDate);
+                                                                                        @Param("start") Timestamp startDate,
+                                                                                        @Param("end") Timestamp endDate);
 }
