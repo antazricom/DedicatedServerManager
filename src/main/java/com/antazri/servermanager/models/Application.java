@@ -1,14 +1,21 @@
 package com.antazri.servermanager.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "application")
 @NamedQueries({
-        @NamedQuery(name = "Application.FindAll", query = "SELECT a FROM Application a"),
-        @NamedQuery(name = "Application.FindByName", query = "SELECT a FROM Application a WHERE lower(a.name) like '%:name%'")
+        @NamedQuery(name = "Application.FindAll", query = "SELECT a FROM Application a ORDER BY a.name")
+})
+@NamedNativeQueries({
+        @NamedNativeQuery(name = "Application.FindByName", query = "SELECT a FROM Application a " +
+                "WHERE a.name ilike '%'+ :name +'%' ORDER BY a.name")
 })
 public class Application {
 
@@ -23,7 +30,21 @@ public class Application {
     @OneToMany(mappedBy = "application", targetEntity = Action.class)
     private List<Action> actions;
 
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    @UpdateTimestamp
+    private Timestamp updatedAt;
+
     public Application() {
+    }
+
+    private Application(String name) {
+        this.name = name;
+    }
+
+    public static Application create(String name) {
+        return new Application(name);
     }
 
     public int getId() {
@@ -50,6 +71,14 @@ public class Application {
         this.actions = actions;
     }
 
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,12 +86,14 @@ public class Application {
         Application that = (Application) o;
         return id == that.id
                 && Objects.equals(name, that.name)
-                && Objects.equals(actions, that.actions);
+                && Objects.equals(actions, that.actions)
+                && Objects.equals(createdAt, that.createdAt)
+                && Objects.equals(updatedAt, that.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, actions);
+        return Objects.hash(id, name, actions, createdAt, updatedAt);
     }
 
     @Override
@@ -71,6 +102,8 @@ public class Application {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", actions=" + actions +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.antazri.servermanager.models;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -12,9 +13,9 @@ import java.util.Objects;
         @NamedQuery(name = "Action.FindAll", query = "SELECT a FROM Action a"),
         @NamedQuery(name = "Action.FindByApplication", query = "SELECT a FROM Action a WHERE a.application.id = :id"),
         @NamedQuery(name = "Action.FindByType", query = "SELECT a FROM Action a WHERE a.type = :type"),
-        @NamedQuery(name = "Action.FindByDate", query = "SELECT a FROM Action a WHERE a.date >= :start AND a.date <= :end"),
+        @NamedQuery(name = "Action.FindByCreatedAt", query = "SELECT a FROM Action a WHERE a.createdAt >= :start AND a.createdAt <= :end"),
         @NamedQuery(name = "Action.FindByAppAndDate", query = "SELECT a FROM Action a WHERE a.application.id = :id " +
-                "AND (a.date >= :start AND a.date <= :end)")
+                "AND (a.createdAt >= :start AND a.createdAt <= :end)")
 })
 public class Action {
 
@@ -34,9 +35,22 @@ public class Action {
     private Application application;
 
     @CreationTimestamp
-    private Timestamp date;
+    private Timestamp createdAt;
+
+    @UpdateTimestamp
+    private Timestamp updatedAt;
 
     public Action() {
+    }
+
+    private Action(ActionType type, String description, Application application) {
+        this.type = type;
+        this.description = description;
+        this.application = application;
+    }
+
+    public static Action create(ActionType type, String description, Application application) {
+        return new Action(type, description, application);
     }
 
     public int getId() {
@@ -71,12 +85,12 @@ public class Action {
         this.application = application;
     }
 
-    public Timestamp getDate() {
-        return date;
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDate(Timestamp date) {
-        this.date = date;
+    public Timestamp getUpdatedAt() {
+        return updatedAt;
     }
 
     @Override
@@ -88,12 +102,13 @@ public class Action {
                 && type == action.type
                 && Objects.equals(description, action.description)
                 && Objects.equals(application, action.application)
-                && Objects.equals(date, action.date);
+                && Objects.equals(createdAt, action.createdAt)
+                && Objects.equals(updatedAt, action.updatedAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, type, description, application, date);
+        return Objects.hash(id, type, description, application, createdAt, updatedAt);
     }
 
     @Override
@@ -103,7 +118,8 @@ public class Action {
                 ", type=" + type +
                 ", description='" + description + '\'' +
                 ", application=" + application +
-                ", date=" + date +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
                 '}';
     }
 }
