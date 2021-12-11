@@ -27,7 +27,7 @@ public class Application {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "application", targetEntity = Action.class)
+    @OneToMany(mappedBy = "application", targetEntity = Action.class, cascade = CascadeType.ALL)
     private List<Action> actions;
 
     @CreationTimestamp
