@@ -6,6 +6,10 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "application")
+@NamedQueries({
+        @NamedQuery(name = "Application.FindAll", query = "SELECT a FROM Application a"),
+        @NamedQuery(name = "Application.FindByName", query = "SELECT a FROM Application a WHERE lower(a.name) like '%:name%'")
+})
 public class Application {
 
     @Id
