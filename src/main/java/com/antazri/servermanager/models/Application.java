@@ -11,11 +11,15 @@ import java.util.Objects;
 @Entity
 @Table(name = "application")
 @NamedQueries({
-        @NamedQuery(name = "Application.FindAll", query = "SELECT a FROM Application a ORDER BY a.name")
+        @NamedQuery(name = "Application.FindAll",
+                query = "SELECT a FROM Application a " +
+                        "ORDER BY a.name")
 })
 @NamedNativeQueries({
-        @NamedNativeQuery(name = "Application.FindByName", query = "SELECT a FROM Application a " +
-                "WHERE a.name ilike '%'+ :name +'%' ORDER BY a.name")
+        @NamedNativeQuery(name = "Application.FindByName",
+                query = "SELECT a FROM Application a " +
+                        "WHERE a.name ilike '%'+ :name +'%' " +
+                        "ORDER BY a.name")
 })
 public class Application {
 
@@ -24,7 +28,7 @@ public class Application {
     @SequenceGenerator(name = "application_id_seq", allocationSize = 1)
     private int id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @OneToMany(mappedBy = "application", targetEntity = Action.class, cascade = CascadeType.ALL)

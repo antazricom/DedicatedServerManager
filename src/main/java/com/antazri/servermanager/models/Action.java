@@ -10,12 +10,21 @@ import java.util.Objects;
 @Entity
 @Table(name = "action")
 @NamedQueries({
-        @NamedQuery(name = "Action.FindAll", query = "SELECT a FROM Action a"),
-        @NamedQuery(name = "Action.FindByApplication", query = "SELECT a FROM Action a WHERE a.application.id = :id"),
-        @NamedQuery(name = "Action.FindByType", query = "SELECT a FROM Action a WHERE a.type = :type"),
-        @NamedQuery(name = "Action.FindByCreatedAt", query = "SELECT a FROM Action a WHERE a.createdAt >= :start AND a.createdAt <= :end"),
-        @NamedQuery(name = "Action.FindByAppAndDate", query = "SELECT a FROM Action a WHERE a.application.id = :id " +
-                "AND (a.createdAt >= :start AND a.createdAt <= :end)")
+        @NamedQuery(name = "Action.FindAll",
+                query = "SELECT a FROM Action a"),
+        @NamedQuery(name = "Action.FindByApplication",
+                query = "SELECT a FROM Action a " +
+                        "WHERE a.application.id = :id"),
+        @NamedQuery(name = "Action.FindByType",
+                query = "SELECT a FROM Action a " +
+                        "WHERE a.type = :type"),
+        @NamedQuery(name = "Action.findByCreatedAt",
+                query = "SELECT a FROM Action a " +
+                        "WHERE a.createdAt BETWEEN :start AND :end"),
+        @NamedQuery(name = "Action.findByApplicationAndCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual",
+                query = "SELECT a FROM Action a " +
+                        "WHERE a.application.id = :id " +
+                        "AND (a.createdAt BETWEEN :start AND :end)")
 })
 public class Action {
 

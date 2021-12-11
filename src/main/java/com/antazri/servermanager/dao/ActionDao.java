@@ -16,10 +16,10 @@ public interface ActionDao extends JpaRepository<Action, Integer> {
 
     List<Action> findByApplicationId(@Param("id") int applicationId);
 
-    List<Action> findByCreatedAt(@Par   am("start") Timestamp startDate,
-                                 @Param("end") Timestamp endDate);
+    List<Action> findByCreatedAt(@Param("start") Timestamp start,
+                                 @Param("end") Timestamp end);
 
-    List<Action> findByApplicationAndCreatedAt(@Param("id") int appId,
-                                    @Param("start") Timestamp startDate,
-                                    @Param("end") Timestamp endDate);
+    List<Action> findByApplicationAndCreatedAtGreaterThanEqualAndCreatedAtLessThanEqual(@Param("id") int appId,
+                                               @Param("start") Timestamp startDate,
+                                               @Param("end") Timestamp endDate);
 }
