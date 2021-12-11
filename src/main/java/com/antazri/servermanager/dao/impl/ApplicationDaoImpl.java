@@ -40,7 +40,7 @@ public class ApplicationDaoImpl implements ApplicationDao {
     }
 
     @Override
-    public Application add(Application application) {
+    public Application save(Application application) {
         entityManager.persist(application);
         return application;
     }

@@ -13,7 +13,7 @@ public interface ApplicationDao {
 
     Set<Application> findAll();
 
-    Application add(Application application);
+    Application save(Application application);
 
     Application update(Application application);
 

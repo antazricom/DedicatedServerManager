@@ -47,8 +47,18 @@ public class Application {
         this.name = name;
     }
 
+    private Application(int id, String name, List<Action> actions) {
+        this.id = id;
+        this.name = name;
+        this.actions = actions;
+    }
+
     public static Application create(String name) {
         return new Application(name);
+    }
+
+    public static Application from(int id, String name, List<Action> actions) {
+        return new Application(id, name, actions);
     }
 
     public int getId() {
