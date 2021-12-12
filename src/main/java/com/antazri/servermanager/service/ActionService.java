@@ -1,8 +1,6 @@
 package com.antazri.servermanager.service;
 
 import com.antazri.servermanager.models.Action;
-import com.antazri.servermanager.models.ActionType;
-import com.antazri.servermanager.models.Application;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,6 +17,8 @@ public interface ActionService {
     List<Action> fetchActionsByApplicationAndCreationDate(int applicationId, LocalDateTime startDate, LocalDateTime endDate);
 
     List<Action> fetchActionsByCreationDate(LocalDateTime startDate, LocalDateTime endDate);
+
+    List<Action> fetchActionsByCreationDate(int timespan);
 
     List<Action> fetchAllActions();
 

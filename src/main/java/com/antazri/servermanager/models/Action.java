@@ -58,8 +58,19 @@ public class Action {
         this.application = application;
     }
 
+    private Action(int id, ActionType type, String description, Application application) {
+        this.id = id;
+        this.type = type;
+        this.description = description;
+        this.application = application;
+    }
+
     public static Action create(ActionType type, String description, Application application) {
         return new Action(type, description, application);
+    }
+
+    public static Action from(int id, ActionType type, String description, Application application) {
+        return new Action(id, type, description, application);
     }
 
     public int getId() {

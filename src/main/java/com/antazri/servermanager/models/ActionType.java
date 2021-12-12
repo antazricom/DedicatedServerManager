@@ -8,7 +8,8 @@ public enum ActionType {
     START("start"),
     PAUSE("pause"),
     STOP("stop"),
-    RUNNING("running");
+    RUNNING("running"),
+    TEST("test");
 
     private String name;
 
