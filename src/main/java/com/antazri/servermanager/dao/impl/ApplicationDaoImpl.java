@@ -24,6 +24,15 @@ public class ApplicationDaoImpl implements ApplicationDao {
     private EntityManager entityManager;
 
     @Override
+    public boolean exists(int id) {
+        Query query = entityManager.createNamedQuery("Application.Exists", Application.class);
+        query.setParameter("id", id);
+        query.executeUpdate();
+
+        return query.getSingleResult() != null;
+    }
+
+    @Override
     public Optional<Application> findById(int id) {
         return Optional.ofNullable(entityManager.find(Application.class, id));
     }
@@ -32,12 +41,16 @@ public class ApplicationDaoImpl implements ApplicationDao {
     public Set<Application> findByName(String name) {
         Query query = entityManager.createNamedQuery("Application.FindByName");
         query.setParameter("name", name);
+        query.executeUpdate();
+
         return new LinkedHashSet(query.getResultList());
     }
 
     @Override
     public Set<Application> findAll() {
         Query query = entityManager.createNamedQuery("Application.FindAll");
+        query.executeUpdate();
+
         return new LinkedHashSet(query.getResultList());
     }
 

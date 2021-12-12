@@ -15,8 +15,8 @@ public interface ApplicationService {
 
     Application createApplication(String name);
 
-    Application updateApplication(Application application, String name);
+    Application updateApplication(int appId, String name);
 
-    boolean deleteApplication(Application application);
+    boolean deleteApplication(int appId);
 
 }

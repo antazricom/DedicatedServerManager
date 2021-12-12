@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -23,10 +24,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public Optional<Application> getById(int id) {
-        if (id < 0) {
-            logger.error("id {} not valid", id);
-            return Optional.empty();
-        }
+        validRequestedId(id);
 
         return applicationDao.findById(id);
     }
@@ -49,11 +47,29 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public Application updateApplication(Application application, String name) {
+    public Application updateApplication(int appId, String name) {
+        validRequestedId(appId);
         validateRequestedName(name);
-        application.setName(name);
 
-        return applicationDao.update(application);
+        Application app = fetchApplication(applicationDao, appId);
+        app.setName(name);
+
+        return applicationDao.update(app);
+    }
+
+    @Override
+    public boolean deleteApplication(int appId) {
+        Application app = fetchApplication(applicationDao, appId);
+
+        return applicationDao.delete(app);
+    }
+
+    private Application fetchApplication(ApplicationDao applicationDao, int appId) {
+        Application app = applicationDao.findById(appId).orElseThrow(() -> {
+            logger.error("No Application found with id {}", appId);
+            throw new NoSuchElementException("No Application found");
+        });
+        return app;
     }
 
     private void validateRequestedName(String name) {
@@ -63,8 +79,10 @@ public class ApplicationServiceImpl implements ApplicationService {
         }
     }
 
-    @Override
-    public boolean deleteApplication(Application application) {
-        return applicationDao.delete(application);
+    private void validRequestedId(int id) {
+        if (id <= 0) {
+            logger.error("Id {} requested invalid", id);
+            throw new IllegalArgumentException("ID invalid.");
+        }
     }
 }

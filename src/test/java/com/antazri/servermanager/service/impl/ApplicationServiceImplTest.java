@@ -8,14 +8,26 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 
 class ApplicationServiceImplTest {
 
 
     private final ApplicationDao applicationDao = Mockito.mock(ApplicationDaoImpl.class);
     private final ApplicationServiceImpl applicationService = new ApplicationServiceImpl(applicationDao);
+
+    @Test
+    void whenDaoReturnEmptyWithId_shouldThrowException() {
+        // When
+        Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.empty());
+
+        // Then
+        assertThrows(IllegalArgumentException.class, () -> applicationService.getById(0));
+    }
 
     @Test
     void whenSavingNewAppWithEmptyName_shouldThrowException() {
@@ -30,9 +42,26 @@ class ApplicationServiceImplTest {
     void whenUpdatingNewAppWithEmptyName_shouldThrowException() {
         // Given
         String name = "    ";
-        Application application = Application.from(1, "App", new ArrayList<>());
 
         // Then
-        assertThrows(IllegalArgumentException.class, () -> applicationService.updateApplication(application, name));
+        assertThrows(IllegalArgumentException.class, () -> applicationService.updateApplication(90, name));
+    }
+
+    @Test
+    void whenUpdatingAndDaoReturnEmpty_shouldThrowException() {
+        // When
+        Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.empty());
+
+        // Then
+        assertThrows(NoSuchElementException.class, () -> applicationService.updateApplication(1, "Test"));
+    }
+
+    @Test
+    void whenDeletingAndDaoReturnEmpty_shouldThrowException() {
+        // When
+        Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.empty());
+
+        // Then
+        assertThrows(NoSuchElementException.class, () -> applicationService.deleteApplication(1));
     }
 }

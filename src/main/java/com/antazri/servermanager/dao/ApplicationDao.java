@@ -7,6 +7,8 @@ import java.util.Set;
 
 public interface ApplicationDao {
 
+    boolean exists(int id);
+
     Optional<Application> findById(int id);
 
     Set<Application> findByName(String name);

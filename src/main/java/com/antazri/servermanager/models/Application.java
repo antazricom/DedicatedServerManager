@@ -11,14 +11,16 @@ import java.util.Objects;
 @Entity
 @Table(name = "application")
 @NamedQueries({
-        @NamedQuery(name = "Application.FindAll",
-                query = "SELECT a FROM Application a " +
-                        "ORDER BY a.name")
+        @NamedQuery(name = "Application.Exists",
+                query = "SELECT a FROM Application a WHERE a.id = :id")
 })
 @NamedNativeQueries({
         @NamedNativeQuery(name = "Application.FindByName",
                 query = "SELECT a FROM Application a " +
                         "WHERE a.name ilike '%'+ :name +'%' " +
+                        "ORDER BY a.name"),
+        @NamedNativeQuery(name = "Application.FindAll",
+                query = "SELECT a FROM Application a " +
                         "ORDER BY a.name")
 })
 public class Application {
