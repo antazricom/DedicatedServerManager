@@ -7,6 +7,8 @@ import com.antazri.servermanager.models.ActionType;
 import com.antazri.servermanager.models.Application;
 import com.antazri.servermanager.service.ActionService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -20,6 +22,7 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(SpringExtension.class)
 class ActionServiceImplTest {
 
     private final ActionDao actionDao = mock(ActionDao.class);

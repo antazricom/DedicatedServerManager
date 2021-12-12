@@ -4,8 +4,10 @@ import com.antazri.servermanager.dao.ApplicationDao;
 import com.antazri.servermanager.dao.impl.ApplicationDaoImpl;
 import com.antazri.servermanager.models.Application;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
@@ -14,6 +16,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyInt;
 
+@ExtendWith(SpringExtension.class)
 class ApplicationServiceImplTest {
 
 
