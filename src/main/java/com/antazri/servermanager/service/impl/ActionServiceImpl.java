@@ -97,7 +97,7 @@ public class ActionServiceImpl implements ActionService {
 
     @Override
     public List<Action> fetchAllActions() {
-        return actionDao.findAll(Sort.by(Sort.Order.asc("application_id")));
+        return actionDao.findAll((Sort) Sort.by(Sort.Order.asc("application_id")).and(Sort.Order.asc("created_at")));
     }
 
     @Override
