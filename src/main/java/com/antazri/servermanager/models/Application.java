@@ -11,8 +11,13 @@ import java.util.Objects;
 @Entity
 @Table(name = "application")
 @NamedQueries({
-        @NamedQuery(name = "Application.Exists",
-                query = "SELECT a FROM Application a WHERE a.id = :id")
+        @NamedQuery(name = "Application.FindByStatus",
+                query = "SELECT a FROM Application a " +
+                        "WHERE a.status = :status"),
+        @NamedQuery(name = "Application.updateStatus",
+                query = "UPDATE Application a " +
+                        "SET a.status = :status " +
+                        "WHERE a.id = :id")
 })
 @NamedNativeQueries({
         @NamedNativeQuery(name = "Application.FindByName",
@@ -33,6 +38,10 @@ public class Application {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
+    private AppStatus status;
+
     @OneToMany(mappedBy = "application", targetEntity = Action.class, cascade = CascadeType.ALL)
     private List<Action> actions;
 
@@ -45,22 +54,27 @@ public class Application {
     public Application() {
     }
 
-    private Application(String name) {
+    private Application(String name, AppStatus status) {
         this.name = name;
+        this.status = status;
     }
 
-    private Application(int id, String name, List<Action> actions) {
-        this.id = id;
-        this.name = name;
+    private Application(String name, AppStatus status, List<Action> actions) {
+        this(name, status);
         this.actions = actions;
     }
 
-    public static Application create(String name) {
-        return new Application(name);
+    private Application(int id, String name, AppStatus status, List<Action> actions) {
+        this(name, status, actions);
+        this.id = id;
     }
 
-    public static Application from(int id, String name, List<Action> actions) {
-        return new Application(id, name, actions);
+    public static Application create(String name, AppStatus status) {
+        return new Application(name, status);
+    }
+
+    public static Application from(int id, String name, AppStatus status, List<Action> actions) {
+        return new Application(id, name, status, actions);
     }
 
     public int getId() {
@@ -77,6 +91,14 @@ public class Application {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public AppStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppStatus status) {
+        this.status = status;
     }
 
     public List<Action> getActions() {
@@ -102,6 +124,7 @@ public class Application {
         Application that = (Application) o;
         return id == that.id
                 && Objects.equals(name, that.name)
+                && status == that.status
                 && Objects.equals(actions, that.actions)
                 && Objects.equals(createdAt, that.createdAt)
                 && Objects.equals(updatedAt, that.updatedAt);
@@ -109,17 +132,6 @@ public class Application {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, actions, createdAt, updatedAt);
-    }
-
-    @Override
-    public String toString() {
-        return "Application{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", actions=" + actions +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                '}';
+        return Objects.hash(id, name, status, actions, createdAt, updatedAt);
     }
 }
