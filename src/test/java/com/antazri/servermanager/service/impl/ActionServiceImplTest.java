@@ -4,6 +4,7 @@ import com.antazri.servermanager.dao.ActionDao;
 import com.antazri.servermanager.dao.ApplicationDao;
 import com.antazri.servermanager.models.Action;
 import com.antazri.servermanager.models.ActionType;
+import com.antazri.servermanager.models.AppStatus;
 import com.antazri.servermanager.models.Application;
 import com.antazri.servermanager.service.ActionService;
 import org.junit.jupiter.api.Test;
@@ -136,7 +137,7 @@ class ActionServiceImplTest {
         String description = "description";
 
         // When
-        when(applicationDao.findById(anyInt())).thenReturn(Optional.of(Application.from(1, "test", Collections.emptyList())));
+        when(applicationDao.findById(anyInt())).thenReturn(Optional.of(Application.from(1, "test", AppStatus.DISABLE, Collections.emptyList())));
 
         // Then
         assertThrows(IllegalArgumentException.class, () -> actionService.createAppAction(appId, type, description));
@@ -150,7 +151,7 @@ class ActionServiceImplTest {
         String description = null;
 
         // When
-        when(applicationDao.findById(anyInt())).thenReturn(Optional.of(Application.from(1, "test", Collections.emptyList())));
+        when(applicationDao.findById(anyInt())).thenReturn(Optional.of(Application.from(1, "test", AppStatus.DISABLE, Collections.emptyList())));
 
         // Then
         assertThrows(IllegalArgumentException.class, () -> actionService.createAppAction(appId, type, description));
@@ -164,7 +165,7 @@ class ActionServiceImplTest {
         String description = "    ";
 
         // When
-        when(applicationDao.findById(anyInt())).thenReturn(Optional.of(Application.from(1, "test", Collections.emptyList())));
+        when(applicationDao.findById(anyInt())).thenReturn(Optional.of(Application.from(1, "test", AppStatus.DISABLE, Collections.emptyList())));
 
         // Then
         assertThrows(IllegalArgumentException.class, () -> actionService.createAppAction(appId, type, description));
@@ -192,7 +193,7 @@ class ActionServiceImplTest {
         String description = "description";
 
         // When
-        when(actionDao.findById(anyInt())).thenReturn(Optional.of(Action.from(actionId, ActionType.TEST, description, Application.create("test"))));
+        when(actionDao.findById(anyInt())).thenReturn(Optional.of(Action.from(actionId, ActionType.TEST, description, Application.create("test", AppStatus.DISABLE))));
 
         // Then
         assertThrows(IllegalArgumentException.class, () -> actionService.updateAppAction(actionId, type, description));

@@ -1,13 +1,12 @@
 INSERT INTO application
-    (id, name, created_at, updated_at)
-VALUES (1, 'App 1', now(), now()),
-       (2, 'App 2', now(), now()),
-       (3, 'App 3', now(), now());
+    (id, name, status, created_at, updated_at)
+VALUES (1, 'App 1', 'DISABLE', now(), now()),
+       (2, 'App 2', 'DISABLE', now(), now()),
+       (3, 'App 3', 'DISABLE', now(), now());
 
 INSERT INTO action
     (id, description, type, application_id, created_at, updated_at)
-VALUES
-       (1, 'Action Description 1', 'INSTALL', '1', now(), now()),
+VALUES (1, 'Action Description 1', 'INSTALL', '1', now(), now()),
        (2, 'Action Description 2', 'INSTALL', '2', now(), now()),
        (3, 'Action Description 3', 'INSTALL', '3', now(), now()),
        (4, 'Action Description 4', 'UPDATE', '2', now(), now()),

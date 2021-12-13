@@ -1,26 +1,24 @@
 package com.antazri.servermanager.service.impl;
 
 import com.antazri.servermanager.dao.ApplicationDao;
-import com.antazri.servermanager.dao.impl.ApplicationDaoImpl;
+import com.antazri.servermanager.models.AppStatus;
 import com.antazri.servermanager.models.Application;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 @ExtendWith(SpringExtension.class)
 class ApplicationServiceImplTest {
 
 
-    private final ApplicationDao applicationDao = Mockito.mock(ApplicationDaoImpl.class);
+    private final ApplicationDao applicationDao = Mockito.mock(ApplicationDao.class);
     private final ApplicationServiceImpl applicationService = new ApplicationServiceImpl(applicationDao);
 
     @Test
@@ -45,9 +43,10 @@ class ApplicationServiceImplTest {
     void whenUpdatingNewAppWithEmptyName_shouldThrowException() {
         // Given
         String name = "    ";
+        String status = "DISABLE";
 
         // Then
-        assertThrows(IllegalArgumentException.class, () -> applicationService.updateApplication(90, name));
+        assertThrows(IllegalArgumentException.class, () -> applicationService.updateApplication(90, name, status));
     }
 
     @Test
@@ -56,7 +55,7 @@ class ApplicationServiceImplTest {
         Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.empty());
 
         // Then
-        assertThrows(NoSuchElementException.class, () -> applicationService.updateApplication(1, "Test"));
+        assertThrows(NoSuchElementException.class, () -> applicationService.updateApplication(1, "Test", "Test"));
     }
 
     @Test
@@ -66,5 +65,25 @@ class ApplicationServiceImplTest {
 
         // Then
         assertThrows(NoSuchElementException.class, () -> applicationService.deleteApplication(1));
+    }
+
+    @Test
+    void whenUpdatingAppStatusWithWrongApp_shouldThrowException() {
+        // When
+        Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.empty());
+        String status = "WRONG STATUS";
+
+        // Then
+        assertThrows(NoSuchElementException.class, () -> applicationService.updateApplicationStatus(1, status));
+    }
+
+    @Test
+    void whenUpdatingAppStatusWithWrongStatusName_shouldThrowException() {
+        // When
+        Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.of(Application.create("test", AppStatus.DISABLE)));
+        String status = "WRONG STATUS";
+
+        // Then
+        assertThrows(NoSuchElementException.class, () -> applicationService.updateApplicationStatus(1, status));
     }
 }

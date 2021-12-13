@@ -1,23 +1,20 @@
 package com.antazri.servermanager.dao;
 
+import com.antazri.servermanager.models.AppStatus;
 import com.antazri.servermanager.models.Application;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import javax.transaction.Transactional;
 import java.util.Set;
 
-public interface ApplicationDao {
-
-    boolean exists(int id);
-
-    Optional<Application> findById(int id);
+@Repository
+@Transactional
+public interface ApplicationDao extends JpaRepository<Application, Integer> {
 
     Set<Application> findByName(String name);
 
-    Set<Application> findAll();
+    Set<Application> findByStatus(AppStatus status);
 
-    Application save(Application application);
-
-    Application update(Application application);
-
-    boolean delete(Application application);
+    Application updateStatus(AppStatus status, int id);
 }
