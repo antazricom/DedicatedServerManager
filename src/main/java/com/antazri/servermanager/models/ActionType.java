@@ -2,14 +2,14 @@ package com.antazri.servermanager.models;
 
 public enum ActionType {
 
-    INSTALL("install"),
-    UPDATE("update"),
-    REMOVE("remove"),
-    START("start"),
-    PAUSE("pause"),
-    STOP("stop"),
-    RUNNING("running"),
-    TEST("test");
+    INSTALL("INSTALL"),
+    UPDATE("UPDATE"),
+    REMOVE("REMOVE"),
+    START("START"),
+    PAUSE("PAUSE"),
+    STOP("STOP"),
+    RUNNING("RUNNING"),
+    TEST("TEST");
 
     private String name;
 
