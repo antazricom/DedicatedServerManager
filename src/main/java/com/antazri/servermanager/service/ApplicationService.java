@@ -10,6 +10,8 @@ public interface ApplicationService {
 
     Optional<Application> getById(int id);
 
+    Optional<Application> getByName(String name);
+
     Set<Application> fetchByName(String name);
 
     Set<Application> fetchByStatus(String status);

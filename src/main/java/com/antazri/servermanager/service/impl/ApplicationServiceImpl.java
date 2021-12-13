@@ -29,8 +29,14 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public Set<Application> fetchByName(String name) {
+    public Optional<Application> getByName(String name) {
         return applicationDao.findByName(name);
+    }
+
+    @Override
+    public Set<Application> fetchByName(String name) {
+        String nameWithWildcards = "%" + name.toLowerCase() + "%";
+        return applicationDao.findByNameContaining(nameWithWildcards);
     }
 
     @Override

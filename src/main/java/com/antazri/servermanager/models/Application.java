@@ -17,14 +17,8 @@ import java.util.Objects;
         @NamedQuery(name = "Application.updateStatus",
                 query = "UPDATE Application a " +
                         "SET a.status = :status " +
-                        "WHERE a.id = :id")
-})
-@NamedNativeQueries({
-        @NamedNativeQuery(name = "Application.FindByName",
-                query = "SELECT a FROM Application a " +
-                        "WHERE a.name ilike '%'+ :name +'%' " +
-                        "ORDER BY a.name"),
-        @NamedNativeQuery(name = "Application.FindAll",
+                        "WHERE a.id = :id"),
+        @NamedQuery(name = "Application.FindAll",
                 query = "SELECT a FROM Application a " +
                         "ORDER BY a.name")
 })
