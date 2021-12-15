@@ -3,7 +3,6 @@ package com.antazri.servermanager.service.impl;
 import com.antazri.servermanager.dao.ApplicationDao;
 import com.antazri.servermanager.models.AppStatus;
 import com.antazri.servermanager.models.Application;
-import com.antazri.servermanager.service.ApplicationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -11,13 +10,13 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class ApplicationServiceImpl implements ApplicationService {
+public class ApplicationService implements com.antazri.servermanager.service.ApplicationService {
 
-    private static final Logger logger = LogManager.getLogger(ApplicationServiceImpl.class);
+    private static final Logger logger = LogManager.getLogger(ApplicationService.class);
 
     private final ApplicationDao applicationDao;
 
-    public ApplicationServiceImpl(ApplicationDao applicationDao) {
+    public ApplicationService(ApplicationDao applicationDao) {
         this.applicationDao = applicationDao;
     }
 

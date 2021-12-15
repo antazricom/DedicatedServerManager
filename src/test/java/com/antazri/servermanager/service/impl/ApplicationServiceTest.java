@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 @ExtendWith(SpringExtension.class)
-class ApplicationServiceImplTest {
+class ApplicationServiceTest {
 
 
     private final ApplicationDao applicationDao = Mockito.mock(ApplicationDao.class);
-    private final ApplicationServiceImpl applicationService = new ApplicationServiceImpl(applicationDao);
+    private final ApplicationService applicationService = new ApplicationService(applicationDao);
 
     @Test
     void whenDaoReturnEmptyWithId_shouldThrowException() {

@@ -6,7 +6,6 @@ import com.antazri.servermanager.models.Action;
 import com.antazri.servermanager.models.ActionType;
 import com.antazri.servermanager.models.AppStatus;
 import com.antazri.servermanager.models.Application;
-import com.antazri.servermanager.service.ActionService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -24,11 +23,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-class ActionServiceImplTest {
+class ActionServiceTest {
 
     private final ActionDao actionDao = mock(ActionDao.class);
     private final ApplicationDao applicationDao = mock(ApplicationDao.class);
-    private final ActionService actionService = new ActionServiceImpl(actionDao, applicationDao);
+    private final com.antazri.servermanager.service.ActionService actionService = new ActionService(actionDao, applicationDao);
 
     @Test
     void whenGettingWithInvalidId_shouldThrowException() {
