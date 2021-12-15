@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Applications</title>
+</head>
+<body>
+<h1>All applications</h1>
+<ul th:each="app : ${apps}">
+    <li th:text="${app.name}"></li>
+</ul>
+
+<a th:href="@{/}">Homepage</a>
+</body>
+</html>
