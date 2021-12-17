@@ -1,12 +1,13 @@
 package com.antazri.servermanager.security.salt;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class SaltGenerator {
 
+    private static final int n = 0;
+
     public static void main(String[] args) {
-        String encodedSalt = BCrypt.gensalt(12);
-        System.out.println(encodedSalt);
-        System.out.println(BCrypt.hashpw("", encodedSalt));
+        String random = RandomStringUtils.random(n, true, true);
+        System.out.println(random);
     }
 }
