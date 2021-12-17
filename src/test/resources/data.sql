@@ -23,6 +23,6 @@ ALTER SEQUENCE action_id_seq RESTART WITH 10;
 
 INSERT INTO admin
     (id, username, password, user_role)
-VALUES (1, 'admin', '$2a$10$19MWoB0rwz4lKVlSLGgXLOo0/JhcZXUKHGp37sZECpbDpLbssZFx6', 1)
+VALUES (1, 'admin', '$2a$10$19MWoB0rwz4lKVlSLGgXLOo0/JhcZXUKHGp37sZECpbDpLbssZFx6', 1);
 
 ALTER SEQUENCE admin_id_seq RESTART WITH 10;
