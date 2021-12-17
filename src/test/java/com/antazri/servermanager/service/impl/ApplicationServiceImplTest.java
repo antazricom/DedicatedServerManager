@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyInt;
 
 @ExtendWith(SpringExtension.class)
-class ApplicationServiceTest {
+class ApplicationServiceImplTest {
 
 
     private final ApplicationDao applicationDao = Mockito.mock(ApplicationDao.class);
-    private final ApplicationService applicationService = new ApplicationService(applicationDao);
+    private final ApplicationServiceImpl applicationServiceImpl = new ApplicationServiceImpl(applicationDao);
 
     @Test
     void whenDaoReturnEmptyWithId_shouldThrowException() {
@@ -27,7 +27,7 @@ class ApplicationServiceTest {
         Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.empty());
 
         // Then
-        assertThrows(IllegalArgumentException.class, () -> applicationService.getById(0));
+        assertThrows(IllegalArgumentException.class, () -> applicationServiceImpl.getById(0));
     }
 
     @Test
@@ -36,7 +36,7 @@ class ApplicationServiceTest {
         String name = "    ";
 
         // Then
-        assertThrows(IllegalArgumentException.class, () -> applicationService.createApplication(name));
+        assertThrows(IllegalArgumentException.class, () -> applicationServiceImpl.createApplication(name));
     }
 
     @Test
@@ -46,7 +46,7 @@ class ApplicationServiceTest {
         String status = "DISABLE";
 
         // Then
-        assertThrows(IllegalArgumentException.class, () -> applicationService.updateApplication(90, name, status));
+        assertThrows(IllegalArgumentException.class, () -> applicationServiceImpl.updateApplication(90, name, status));
     }
 
     @Test
@@ -55,7 +55,7 @@ class ApplicationServiceTest {
         Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.empty());
 
         // Then
-        assertThrows(NoSuchElementException.class, () -> applicationService.updateApplication(1, "Test", "Test"));
+        assertThrows(NoSuchElementException.class, () -> applicationServiceImpl.updateApplication(1, "Test", "Test"));
     }
 
     @Test
@@ -64,7 +64,7 @@ class ApplicationServiceTest {
         Mockito.when(applicationDao.findById(anyInt())).thenReturn(Optional.empty());
 
         // Then
-        assertThrows(NoSuchElementException.class, () -> applicationService.deleteApplication(1));
+        assertThrows(NoSuchElementException.class, () -> applicationServiceImpl.deleteApplication(1));
     }
 
     @Test
@@ -74,7 +74,7 @@ class ApplicationServiceTest {
         String status = "WRONG STATUS";
 
         // Then
-        assertThrows(NoSuchElementException.class, () -> applicationService.updateApplicationStatus(1, status));
+        assertThrows(NoSuchElementException.class, () -> applicationServiceImpl.updateApplicationStatus(1, status));
     }
 
     @Test
@@ -84,6 +84,6 @@ class ApplicationServiceTest {
         String status = "WRONG STATUS";
 
         // Then
-        assertThrows(NoSuchElementException.class, () -> applicationService.updateApplicationStatus(1, status));
+        assertThrows(NoSuchElementException.class, () -> applicationServiceImpl.updateApplicationStatus(1, status));
     }
 }

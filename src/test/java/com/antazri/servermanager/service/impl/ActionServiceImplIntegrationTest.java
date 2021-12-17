@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-class ActionServiceIntegrationTest {
+class ActionServiceImplIntegrationTest {
 
     @Autowired
     private ActionService actionService;

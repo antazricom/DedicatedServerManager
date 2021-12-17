@@ -5,6 +5,7 @@ import com.antazri.servermanager.dao.ApplicationDao;
 import com.antazri.servermanager.models.Action;
 import com.antazri.servermanager.models.ActionType;
 import com.antazri.servermanager.models.Application;
+import com.antazri.servermanager.service.ActionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,16 +17,16 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-public class ActionService implements com.antazri.servermanager.service.ActionService {
+public class ActionServiceImpl implements ActionService {
 
-    private static final Logger logger = LogManager.getLogger(ActionService.class);
+    private static final Logger logger = LogManager.getLogger(ActionServiceImpl.class);
 
     private final ActionDao actionDao;
 
     @Qualifier("applicationDaoImpl")
     private final ApplicationDao applicationDao;
 
-    public ActionService(ActionDao actionDao, ApplicationDao applicationDao) {
+    public ActionServiceImpl(ActionDao actionDao, ApplicationDao applicationDao) {
         this.actionDao = actionDao;
         this.applicationDao = applicationDao;
     }

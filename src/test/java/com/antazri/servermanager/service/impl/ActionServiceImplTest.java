@@ -23,11 +23,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-class ActionServiceTest {
+class ActionServiceImplTest {
 
     private final ActionDao actionDao = mock(ActionDao.class);
     private final ApplicationDao applicationDao = mock(ApplicationDao.class);
-    private final com.antazri.servermanager.service.ActionService actionService = new ActionService(actionDao, applicationDao);
+    private final com.antazri.servermanager.service.ActionService actionService = new ActionServiceImpl(actionDao, applicationDao);
 
     @Test
     void whenGettingWithInvalidId_shouldThrowException() {
