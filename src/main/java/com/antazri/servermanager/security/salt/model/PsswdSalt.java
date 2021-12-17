@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
 import java.util.Objects;
 
-@Document(collation = "salt")
+@Document(collection = "salt")
 public class PsswdSalt {
 
     @Id

@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface PsswdSaltDao extends MongoRepository<PsswdSalt, String> {
 
-    @Query("{userId:'?0'}")
+    @Query("{user_id:?0}")
     Optional<PsswdSalt> findByUserId(int id);
 }
