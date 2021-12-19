@@ -19,7 +19,7 @@ pipeline {
 
         stage('Run') {
             steps {
-                sh "mvn springboot:run -Dspring.active.profiles=prod -X -e"
+                sh "mvn spring-boot:run -Dspring.active.profiles=prod -X -e"
             }
         }
     }
