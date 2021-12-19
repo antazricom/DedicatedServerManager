@@ -9,19 +9,19 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh "mvn -Dspring.active.profiles=prod test"
+                sh "mvn -Dspring.active.profiles=prod test -X -e"
             }
         }
 
         stage('Build') {
             steps {
-                sh "mvn -Dskiptests=true -Dspring.active.profiles=prod clean package"
+                sh "mvn -Dskiptests=true -Dspring.active.profiles=prod clean package-X -e"
             }
         }
 
         stage('Run') {
             steps {
-                sh "mvn -Dspring.active.profiles=prod springboot:run"
+                sh "mvn -Dspring.active.profiles=prod springboot:run-X -e"
             }
         }
     }
