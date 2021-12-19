@@ -27,6 +27,7 @@
     <!-- ============================================== -->
     <properties>
         <java.version>17</java.version>
+        <log4j2.version>2.17.0</log4j2.version>
     </properties>
 
     <!-- ============================================== -->
@@ -102,12 +103,17 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
     </dependencies>
 
     <!-- ============================================== -->
     <!-- Build & Plugins Management -->
     <!-- ============================================== -->
     <build>
+        <finalName>dedicatedservermanager-${version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
