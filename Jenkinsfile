@@ -10,15 +10,10 @@ pipeline {
                 git 'https://github.com/antazricom/DedicatedServerManager.git'
             }
         }
-        stage('Test') {
-            steps {
-                sh "mvn -Dspring.active.profiles=prod test -X -e"
-            }
-        }
 
         stage('Build') {
             steps {
-                sh "mvn -Dskiptests=true -Dspring.active.profiles=prod clean package-X -e"
+                sh "mvn -Dspring.active.profiles=prod clean package-X -e"
             }
         }
 
