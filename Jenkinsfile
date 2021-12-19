@@ -13,13 +13,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "mvn -Dspring.active.profiles=prod clean package-X -e"
+                sh "mvn clean package -Dspring.active.profiles=prod -X -e"
             }
         }
 
         stage('Run') {
             steps {
-                sh "mvn -Dspring.active.profiles=prod springboot:run-X -e"
+                sh "mvn springboot:run -Dspring.active.profiles=prod -X -e"
             }
         }
     }
