@@ -1,6 +1,8 @@
 pipeline {
     agent any
-    def maven = "DebianLocalMaven3"
+    tools {
+        maven 'DebianLocalMaven3'
+    }
 
     stages {
         stage('Git') {
