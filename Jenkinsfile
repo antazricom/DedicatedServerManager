@@ -13,7 +13,7 @@ pipeline {
 
         stage('Run') {
             steps {
-                sh "mvn spring-boot:run -Dspring.active.profiles=prod -X -e"
+                sh "cp ./target/*.jar /opt/apps/"
             }
         }
     }

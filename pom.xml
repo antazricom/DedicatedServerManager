@@ -100,10 +100,45 @@
     </dependencies>
 
     <!-- ============================================== -->
+    <!-- Profiles Management -->
+    <!-- ============================================== -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.profile>dev</spring.profile>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <finalName>dedicatedservermanager-${version}-SNAPSHOT</finalName>
+            </build>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profile>prod</spring.profile>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <finalName>dedicatedservermanager-${version}-RELEASE</finalName>
+            </build>
+        </profile>
+    </profiles>
+
+    <!-- ============================================== -->
     <!-- Build & Plugins Management -->
     <!-- ============================================== -->
     <build>
-        <finalName>dedicatedservermanager-${version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
