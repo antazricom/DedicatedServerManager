@@ -6,9 +6,16 @@
 </head>
 <body>
 <h1>All applications</h1>
-<ul th:each="app : ${apps}">
-    <li th:text="${app.name}"></li>
-</ul>
+<div id="wrapper">
+    <div id="apps-list">
+        <ul th:each="app : ${apps}">
+            <li th:text="${app.name}"></li>
+        </ul>
+    </div>
+    <div id="app-add-form">
+
+    </div>
+</div>
 
 <a th:href="@{/}">Homepage</a>
 </body>

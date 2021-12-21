@@ -2,16 +2,16 @@ package com.antazri.servermanager.controller;
 
 import com.antazri.servermanager.models.Application;
 import com.antazri.servermanager.service.ApplicationService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/app")
 public class ApplicationController {
 
@@ -22,12 +22,9 @@ public class ApplicationController {
     }
 
     @GetMapping
-    public ModelAndView getAllApplications(final Model model, final HttpServletRequest request) {
+    public ResponseEntity getAllApplications(final HttpServletRequest request) {
         List<Application> apps = applicationService.fetchAllApplications();
 
-        ModelAndView mv = new ModelAndView("applications");
-        mv.addObject("apps", apps);
-
-        return mv;
+        return new ResponseEntity(apps, HttpStatus.OK);
     }
 }
