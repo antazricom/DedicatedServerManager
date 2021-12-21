@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Git') {
             steps {
-                git 'https://github.com/antazricom/DedicatedServerManager.git'
+                git 'https://gitlab.com/antazricom/DedicatedServerManager'
             }
         }
 
