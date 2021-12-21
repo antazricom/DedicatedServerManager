@@ -11,7 +11,7 @@ pipeline {
             }
         }
 
-        stage('Run') {
+        stage('Copy JAR') {
             steps {
                 sh "cp ./target/*.jar /opt/apps/"
             }
